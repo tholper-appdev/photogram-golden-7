@@ -1,0 +1,29 @@
+ <div class="container">
+      <h1>Photo Details</h1>
+
+<p></p>
+
+<img src="<%= @source %>">
+
+<p>
+  <%= @caption %> 
+</p>
+
+<nav>
+  <ul>
+    <li><a href="/photos">
+      Go back
+    </a></li>
+
+    <li><a href="/photos/<%= @id %>/edit">
+      Edit
+    </a></li>
+
+    <li><a href="/delete_photo/<%= @id %>">
+      Delete
+    </a></li>
+  </ul>
+</nav>
+
+</div>
+
