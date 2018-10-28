@@ -18,12 +18,12 @@ class PicturesController < ApplicationController
         else
             @caption = ""
         end        
-        photo = Photo.new
-        photo.source = @source
-        photo.caption = @caption
-        photo.save
+        @photo = Photo.new
+        @photo.source = @source
+        @photo.caption = @caption
+        @photo.save
 
-        render("photos_create_action.html.erb")
+        redirect_to("/photos", :notice => "You created a photo!")
     end  
     def destroy_row
         if params.fetch("id")
@@ -32,10 +32,10 @@ class PicturesController < ApplicationController
             @id = ""
         end 
         
-        photo = Photo.find(@id)
-        photo.destroy
+        @photo = Photo.find(@id)
+        @photo.destroy
         
-        render("photos_delete.html.erb")
+        redirect_to("/photos", :notice => "You deleted a photo!")
     end
     def edit_form
         if params.fetch("id")
@@ -44,9 +44,9 @@ class PicturesController < ApplicationController
             @id = ""
         end 
         
-        photo = Photo.find(@id)
-        @source = photo.source
-        @caption = photo.caption         
+        @photo = Photo.find(@id)
+        @source = @photo.source
+        @caption = @photo.caption         
         
         render("photos_update_form.html.erb")
     end
@@ -67,12 +67,12 @@ class PicturesController < ApplicationController
             @caption = ""
         end        
         
-        photo = Photo.find(@id)
-        photo.source = @source
-        photo.caption = @caption
-        photo.save
+        @photo = Photo.find(@id)
+        @photo.source = @source
+        @photo.caption = @caption
+        @photo.save
 
-        render("photos_update_action.html.erb")
+        redirect_to("/photos/#{@photo.id}", :notice => "You updated a photo!")
     end 
     def show
         if params.fetch("id")
@@ -81,13 +81,13 @@ class PicturesController < ApplicationController
             @id = ""
         end 
         
-        photo = Photo.find(@id)
-        @source = photo.source
-        @caption = photo.caption
+        @photo = Photo.find(@id)
+        @source = @photo.source
+        @caption = @photo.caption
 
-        @created_at = photo.created_at
+        @created_at = @photo.created_at
         @minutes_ago = (Time.current - @created_at).minutes.round
         
-        render("photos_detail.html.erb")
+        render("photos_show.html.erb")
     end  
 end
